@@ -1,3 +1,6 @@
+from pprint import pprint
+
+#Задача №1
 def create_cook_book(file_name):
     cook_book = {}
 
@@ -29,11 +32,29 @@ def create_cook_book(file_name):
 
     return cook_book
 
-
 cook_book = create_cook_book('recipes.txt')
 
-for dish, ingredients in cook_book.items():
-    print(dish)
-    for ingredient in ingredients:
-        print(ingredient)
-    print()
+# Задача №2
+
+def get_shop_list_by_dishes(dishes, cook_book, person_count):
+    ing_dict = {}
+
+    for key in cook_book.keys ():
+        for dish in dishes:
+            if key == dish:
+                for dictionary in cook_book[key]:
+                    ing_name = dictionary['ingredient_name']
+                    try:
+                        ing_dict[ing_name]['quantity'] += (dictionary['quantity'] * person_count)
+                    except:
+                        ing_dict[ing_name] = {'measure': dictionary['measure'],
+                                              'quantity': dictionary['quantity'] * person_count}
+    return ing_dict
+
+print('Задача №1:\n')
+pprint(create_cook_book('recipes.txt'))
+print('\n')
+
+print('Задача №2:\n')
+pprint(get_shop_list_by_dishes(['Омлет', 'Омлет'], create_cook_book('recipes.txt'), 2))
+print('\n')
